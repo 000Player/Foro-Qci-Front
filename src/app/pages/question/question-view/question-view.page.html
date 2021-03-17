@@ -1,0 +1,104 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Pregunta - {{ (question.open) ? 'Abierta' : 'Cerrada' }}
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="events"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="getReloadQsn($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-card>
+    <ion-item color="myPrimary">
+      <ion-avatar slot="start">
+        <img src="assets/icon/avatar.png">
+      </ion-avatar>
+      <ion-label *ngIf="(this.question.open) && (this.user.permission == 1)" slot="end">
+        <ion-button color="danger" (click)="closeQuestion(question._id)">
+          <ion-label>CERRAR</ion-label>
+          <ion-icon slot="end" name="close-circle"></ion-icon>
+        </ion-button>
+      </ion-label>
+      <ion-label>
+        <ion-text color="myPrimaryText">
+          <h2> <strong>{{question.user.name + ' ' + question.user.lastName}}</strong></h2>
+        </ion-text>
+        <ion-text color="myPrimaryText">
+          <p class="date">{{question.date | date: 'MMM d, y'}}</p>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+
+    <ion-card-header>
+      <ion-card-title color="myPrimaryTextColor"> <strong> {{ question.title }} </strong></ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{question.body}}
+    </ion-card-content>
+
+    <ion-chip color="primary" *ngFor="let br of tag.tags">
+      <ion-label class="ion-text-wrap">{{ br.name | slice:0:3 }}</ion-label><br>
+    </ion-chip> 
+
+  </ion-card>
+
+  <ion-list>
+    <ion-item lines="full">
+      <ion-text color="myPrimaryDark">
+        {{(question.replys.length < 1) ? 'Nadie a respondido a esta pregunta todavia.' : 'Respuestas:'}}</ion-text>
+    </ion-item>
+    <ion-item *ngFor="let reply of question.replys">
+      <ion-avatar slot="start">
+        <img src="assets/icon/avatar.png">
+      </ion-avatar>
+      <ion-button *ngIf="reply.user._id == user._id" slot="end" color="danger" (click)="confirmRemoveReply(reply._id)">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
+      <ion-label class="ion-text-wrap">
+        <ion-text color="myPrimaryTextColor">
+          <h2> <strong> {{reply.user.name + ' ' + reply.user.lastName}} </strong> </h2>
+        </ion-text>
+        <ion-text>
+          <p class="date">{{reply.date | date: 'MMM d, y - H:mm'}}</p>
+        </ion-text>
+        <ion-text color="myPrimaryTextColor" style="font-size: medium;">
+          <span>{{ reply.reply }}</span>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+<ion-footer>
+  <form *ngIf="question.open; else elseForm" #formReply="ngForm">
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="assets/icon/avatar.png">
+      </ion-avatar>
+      <ion-textarea rows="3" placeholder="Respoder a esta pregunta" name="reply" [(ngModel)]="reply.reply" minlength="2"
+        required></ion-textarea>
+      <ion-button [disabled]="!formReply.valid" style="margin-top: 25px;" slot="end" color="light"
+        (click)="confirmAddReply()">
+        <ion-icon name="send" color="primary"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </form>
+
+  <ng-template #elseForm>
+    <ion-text color="medium">
+      <div class="ion-text-center">
+        Pregunta cerrada, no puedes responder a esta pregunta.
+      </div>
+    </ion-text>
+  </ng-template>
+</ion-footer>

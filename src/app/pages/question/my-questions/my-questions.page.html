@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Mis preguntas
+    </ion-title>
+    <!-- <ion-icon name="help-circle-outline"></ion-icon> -->
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="events"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item lines="full">
+    <ion-button color="success" expand="block" slot="end" (click)="newQuestion()">
+      Pregunta
+      <ion-icon style="margin-left: 8px; margin-bottom: 2px;" name="add-circle"></ion-icon>
+    </ion-button>
+    <ion-label> <strong> Haz tu pregunta aqui. </strong> </ion-label>
+  </ion-item>
+
+  <ion-text color="medium">
+    <div class="ion-text-center" style="margin-top: 4px;">
+      {{( myQuestions.length < 1) ? 'Aun no has hecho ninguna pregunta' : 'Tus preguntas.'}}
+    </div>
+  </ion-text>
+
+  <ion-list>
+
+    <ion-card *ngFor="let question of myQuestions">
+      <ion-card-header color="myPrimary" style="margin-bottom: 10px; padding: 10px;">
+        <ion-card-title>
+          <ion-text color="myPrimaryText" style="font-size: 16px;">
+            <strong> {{ question.title }} </strong>
+          </ion-text>
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content style="font-size: 16px;"> {{ question.body }} </ion-card-content>
+
+      <ion-footer>
+        <ion-row>
+          <ion-col class="ion-text-center">
+            <ion-button color="tertiary" (click)="viewQuestion(question._id)"> VER
+              <ion-icon name="eye" style="padding-left: 4px;"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col *ngIf="question.open" class="ion-text-center">
+            <ion-button color="myPrimary" (click)="updateQuestion(question._id)"> EDITAR
+              <ion-icon name="create" style="padding-left: 4px;"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col *ngIf="question.open" class="ion-text-center">
+            <ion-button color="danger" (click)="confirmClose(question._id)"> CERRAR
+              <ion-icon name="close-circle" style="padding-left: 2px;" ></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-footer>
+    </ion-card>
+
+  </ion-list>
+
+</ion-content>

@@ -1,0 +1,5 @@
+export class Response <T> {
+    status: boolean;
+    message: string;
+    data: T;
+}

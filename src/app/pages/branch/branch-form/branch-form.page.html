@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar color="headerColor">
+    <ion-title> Nueva Rama </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="events"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #formBranch="ngForm">
+    <ion-list>
+      
+      <ion-item>
+        <ion-label position="floating" color="medium">Nombre del rama:</ion-label>
+      <ion-input type="text" name="title" [(ngModel)]="branch.name" minlength="4" required></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label position="floating" color="medium">Descripción:</ion-label>
+      <ion-textarea name="body" [(ngModel)]="branch.description" minlength="4" required></ion-textarea>
+    </ion-item>
+    
+  </ion-list>
+</form>
+
+  <section>
+    <ion-button *ngIf="id == '0'; else elseOpt" expand="full"  
+    [disabled]="!formBranch.valid" (click)="createBranch()" color="myPrimaryDark">
+      AGREGAR 
+    </ion-button>
+    <ng-template #elseOpt>
+      <ion-button expand="full" (click)="updateBranch()" color="myPrimaryDark"> ACTUALIZAR </ion-button>
+    </ng-template>
+  </section>
+
+</ion-content>

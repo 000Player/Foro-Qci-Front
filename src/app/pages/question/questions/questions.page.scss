@@ -1,0 +1,38 @@
+.select:hover {
+    cursor: pointer;
+}
+
+ion-content {
+    --background: white;
+}
+
+ion-toolbar {
+    --background: #00796B;
+    --color: white;
+}
+
+ion-card-content {
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+}
+
+.leyenda {
+    --background: #f5f5f5;
+}
+
+.user {
+    color: #3880ff;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.title {
+    color: #607D8B;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.findInput {
+    color: rgb(16, 122, 172);
+    background-color: rgb(251, 251, 251);
+}

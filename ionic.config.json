@@ -1,0 +1,7 @@
+{
+  "name": "ForoQci",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

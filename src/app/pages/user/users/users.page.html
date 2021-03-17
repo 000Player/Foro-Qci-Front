@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar color="headerColor">
+    <ion-title>Usuarios (Admin)
+
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="events"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ios">
+
+  <ion-refresher slot="fixed" (ionRefresh)="getReloadUsers($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <ion-item *ngFor="let user of usersList">
+
+      <ion-thumbnail  slot="end" class="ion-text-wrap ion-text-right">
+        <ion-button color="danger" (click)="confirmDelete(user._id)">  <ion-icon name="trash"></ion-icon> </ion-button>
+        <ion-button color="secondary" (click)="presentActionSheet(user._id)">  <ion-icon name="lock-open"></ion-icon> </ion-button>
+      </ion-thumbnail >
+      <ion-label class="ion-text-wrap">
+        <strong>{{ user.name + ' ' + user.lastName}}</strong>
+        <ion-text color="primary" style="display: block;"> <strong style="color: rgb(124, 124, 124)">Rol: </strong> {{ (user.permission == 0) ? 'Usuario' :'Admin' }}</ion-text>
+        <ion-text color="primary" style="display: block;"> <strong style="color: rgb(124, 124, 124)">Código: </strong> {{ user.code }}</ion-text>
+        <ion-text color="primary" style="display: block;"> <strong style="color: rgb(124, 124, 124)">Email: </strong> {{ user.email }}</ion-text>
+      </ion-label>
+    </ion-item>
+
+  </ion-list>
+
+</ion-content>

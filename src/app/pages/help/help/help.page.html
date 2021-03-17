@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Ayudar
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="events"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item color="light">
+    <ion-text color="medium" (click)="showMessage()">
+      ¿Qué es esto?
+    </ion-text>
+    <ion-item slot="end" color="light" style="margin: 0px; width: 70%;">
+      <ion-label color="primary" style="margin-right: 10px;">Buscar: </ion-label>
+      <ion-input class="findInput" (keyup)="findQuestion($event.target.value)"></ion-input>
+    </ion-item>
+  </ion-item>
+
+  <div *ngIf="showMsg">
+    <ion-card>
+      <ion-card-content>
+        Apoya a la comunidad de alumnos contestando las preguntas de los demas,
+        asi nos apoyamos entre todos. Usa el filtro para buscar preguntas que se ajusten
+        a tus conocimientos, o bien usa el buscador.
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <ion-item lines="full">
+    <ion-label>
+      <ion-text color="primary" style="font-size: 18px">Filtro:</ion-text>
+    </ion-label>
+
+    <ion-select interface="popover" (ionChange)="filter()" [(ngModel)]="selectText" [selectedText]="selectText">
+      <ion-select-option value="MIS HABILIDADES">MIS HABILIDADES</ion-select-option>
+      <ion-select-option *ngFor="let branch of branchList" [value]="branch.name">{{ branch.name }}</ion-select-option>
+      <ion-select-option value="TODO">TODO</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item lines="full" *ngIf="tagsFilterList.length < 1; else elseList">
+    <ion-text color="medium">
+      <div> No hay preguntas abiertas sobre este tema. </div>
+    </ion-text>
+  </ion-item>
+
+  <ng-template #elseList>
+    
+    <ion-refresher slot="fixed" (ionRefresh)="getReloadTags($event)">
+      <ion-refresher-content>
+      </ion-refresher-content>
+    </ion-refresher>
+    
+    <ion-list>
+      <ion-item *ngFor="let tag of tagsFilterList" (click)="viewQuestion(tag.question._id)">
+        <ion-avatar slot="start">
+          <img src="assets/icon/avatar.png">
+        </ion-avatar>
+        <ion-text slot="end" color="myPrimary"> {{tag.question.date |date: 'd/M/yyyy'}} </ion-text>
+        <ion-label>
+          <ion-text color="primary">
+            <h2 class="user"> {{tag.question.user.name + ' ' + tag.question.user.lastName}} </h2>
+          </ion-text>
+          <h2 class="title"><strong> {{tag.question.title}} </strong></h2>
+          <ion-text color="medium">
+            <span> {{tag.question.body}} </span>
+          </ion-text>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ng-template>
+
+</ion-content>

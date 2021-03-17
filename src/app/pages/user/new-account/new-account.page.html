@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Registrar</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="logotipo">
+    <img src="assets/icon/logoV2.png">
+  </div>
+
+  <form #formLogin="ngForm">
+    <ion-item>
+      <ion-label position="floating"> Nombre: </ion-label>
+      <ion-input autofocus minlength="2" [(ngModel)]="user.name" type="text" name="nombre" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating"> Apellidos: </ion-label>
+      <ion-input type="text" minlength="2" [(ngModel)]="user.lastName" name="apellido" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating"> Correo electrónico: </ion-label>
+      <ion-input type="email" pattern="[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})" [(ngModel)]="user.email" name="email" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating"> Contraseña </ion-label>
+      <ion-input minlength="4" type="password" [(ngModel)]="user.password" name="password" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating"> Repita su contraseña </ion-label>
+      <ion-input type="password" name="password2" (keyup)="verifyPassword($event.target.value)" required></ion-input>
+    </ion-item>
+  </form>
+
+  <ion-button expand="full" color="myPrimary" (click)="verifyNewUser()" [disabled]="!(formLogin.valid && (bandera==true))" >Registrar</ion-button>
+
+  <div class="iniciar">
+    <p>¿Ya tienes una cuenta?</p>
+    <a routerLink="/login/">Inicia sesión ahora</a>
+  </div>
+
+
+</ion-content>

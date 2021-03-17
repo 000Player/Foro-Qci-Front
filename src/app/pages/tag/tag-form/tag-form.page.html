@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Agregar etiquetas
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item lines="full">
+    <ion-text color="medium">
+      <div class="ion-text-center">
+        Por favor marca la(s) categoria(s) a la que pertenece tu pregunta.
+      </div>
+    </ion-text>
+  </ion-item>
+
+  <ion-list>
+    <ion-item *ngFor="let check of checkList">
+      <ion-checkbox slot="start" color="success" [(ngModel)]="check.isCheck" (ionChange)="validateForm()"></ion-checkbox>
+      <ion-label>{{check.name}}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="full" color="myPrimary" (click)="createTag()" [disabled]="!formValid">Enviar</ion-button>
+</ion-content>

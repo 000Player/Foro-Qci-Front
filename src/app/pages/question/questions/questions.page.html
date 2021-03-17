@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Preguntas
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="events"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item class="leyenda">
+    <p (click)="showHide()">
+      <ion-text color="medium"> ¿Qué es esto?</ion-text>
+    </p>
+    <ion-item slot="end" color="light" style="margin: 0px; width: 70%;">
+      <ion-label color="primary" style="margin-right: 10px;">Buscar: </ion-label>
+      <ion-input class="findInput" (keyup)="findQuestion($event.target.value)"></ion-input>
+    </ion-item>
+  </ion-item>
+  <div id="showHide" style="display: none;">
+    <ion-card>
+      <ion-card-content>
+        En esta sección podrás ver todas las preguntas que se han realizado
+        en todo el foro. Las preguntas aquí abarcan los temas en general.
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <ion-refresher slot="fixed" (ionRefresh)="getReloadQns($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+  
+  <ion-list>
+
+    <ion-text *ngIf="questionFilterList.length < 1" color="medium">
+      <div style="font-size: 24px" class="ion-text-center">
+        No hay preguntas disponibles.
+      </div>
+    </ion-text>
+
+      <ion-item *ngFor="let question of questionFilterList" (click)="viewQuestion(question._id)">
+        <ion-avatar slot="start">
+          <img src="assets/icon/avatar.png">
+        </ion-avatar>
+        <ion-text slot="end" color="myPrimary"> {{question.date | date: 'd/M/yyyy'}} </ion-text>
+        <ion-label>
+          <ion-text color="primary">
+            <h2 class="user">{{ question.user.name + ' ' + question.user.lastName }}</h2>
+          </ion-text>
+          <h2>
+            <ion-text class="title"> <strong> {{ question.title }} </strong></ion-text>
+          </h2>
+          <ion-text color="medium">
+            <span> {{ question.body }} </span>
+          </ion-text>
+        </ion-label>
+      </ion-item>
+
+  </ion-list>
+</ion-content>

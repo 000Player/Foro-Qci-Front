@@ -1,0 +1,77 @@
+<ion-menu menuId="main-menu" content-id="main" (ionWillOpen)="getInfoUser()">
+  <ion-header>
+    <ion-toolbar color="myAccent">
+      <ion-title color="myPrimaryText">Menú {{ (user.permission == 1) ? '(Admin)' : ''}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+
+      <ion-menu-toggle>
+        <ion-item routerLink="/profile">
+          <ion-icon name="person-circle" slot="start" color="headerColor"></ion-icon>
+          <ion-label>Perfil</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle>
+        <ion-item routerLink="/events">
+          <ion-icon name="calendar" slot="start" color="primary"></ion-icon>
+          <ion-label>Eventos</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle>
+        <ion-item routerLink="/my-questions">
+          <ion-icon name="help" slot="start" color="myPrimary"></ion-icon>
+          <ion-label>Mis preguntas</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle>
+        <ion-item routerLink="/help">
+          <ion-icon name="heart-circle" slot="start" color="danger"></ion-icon>
+          <ion-label>Ayudar</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle>
+        <ion-item routerLink="/questions">
+          <ion-icon name="help-circle" slot="start" color="tertiary"></ion-icon>
+          <ion-label>Preguntas</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle *ngIf="user.permission == 1">
+        <ion-item routerLink="/users">
+          <ion-icon slot="start" color="primary" name="people"></ion-icon>
+          <ion-label>Usuarios</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle *ngIf="user.permission == 1">
+        <ion-item routerLink="/branches">
+          <ion-icon slot="start" color="warning" name="git-branch"></ion-icon>
+          <ion-label>Ramas</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+    </ion-list>
+  </ion-content>
+  <ion-menu-toggle>
+
+    <ion-footer>
+
+      <ion-item routerLink="/about" lines="none">
+        <ion-icon slot="start" color="medium" name="information-circle"></ion-icon>
+        <ion-label style="font-size: 16px; margin: 0px;" color="medium">Acerca de</ion-label>
+      </ion-item>
+
+      <ion-button expand="full" color="myAccent" (click)="logOut()">
+        <ion-icon name="exit-outline" slot="start" color="light"></ion-icon>
+        Salir
+      </ion-button>
+    </ion-footer>
+  </ion-menu-toggle>
+
+</ion-menu>

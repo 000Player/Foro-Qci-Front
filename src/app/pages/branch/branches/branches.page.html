@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar color="headerColor">
+    <ion-title>Ramas (Admin)
+
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="events"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="getReloadBranches($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-card *ngFor="let branch of branchList">
+    <ion-card-header color="headerColor" style="margin-bottom: 10px; padding: 10px;">
+      <ion-card-title>
+        <ion-text style="font-size: 16px;">
+          <strong> {{ branch.name }} </strong>
+        </ion-text>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content color="light" style="font-size: 16px;"> {{ branch.description }} </ion-card-content>
+
+    <ion-footer>
+      <ion-row>
+        <ion-col class="ion-text-center">
+          <ion-button color="myPrimary" (click)="editBranch(branch._id)"> EDITAR
+            <ion-icon name="create" style="padding-left: 4px;"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col class="ion-text-center">
+          <ion-button color="danger" (click)="confirmClose(branch._id)"> ELIMINAR
+            <ion-icon name="close-circle" style="padding-left: 2px;"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-footer>
+  </ion-card>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button size="small" color="success" routerLink="/branch-form/0">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+
+
+</ion-content>

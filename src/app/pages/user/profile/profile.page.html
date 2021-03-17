@@ -1,0 +1,106 @@
+<ion-header>
+  <ion-toolbar color="headerColor">
+    <ion-title>Mi perfil {{ (user.permission == 1) ? '(Admin)' : ''}}
+
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="events"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div class="center-content">
+          <ion-avatar class="big-size">
+            <img src="assets/icon/avatar.png">
+          </ion-avatar>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <form #userForm="ngForm">
+
+    <ion-card>
+      <ion-item>
+        <ion-label class="text-label"> Nombre: </ion-label>
+        <ion-input class="text-input" type="text" (dblclick)="enableInput($event.target)" [(ngModel)]="user.name"
+          name="name" readonly required></ion-input>
+      </ion-item>
+    </ion-card>
+
+    <ion-card>
+      <ion-item>
+        <ion-label class="text-label"> Apellidos: </ion-label>
+        <ion-input class="text-input" type="text" (dblclick)="enableInput($event.target)" [(ngModel)]="user.lastName"
+          name="lastName" required readonly></ion-input>
+      </ion-item>
+    </ion-card>
+
+    <ion-card>
+      <ion-item>
+        <ion-label class="text-label"> Email: </ion-label>
+        <ion-input class="text-input" type="email" [(ngModel)]="user.email" name="email" disabled></ion-input>
+      </ion-item>
+    </ion-card>
+
+    <ion-card>
+      <ion-item>
+        <ion-label class="text-label"> Edad: </ion-label>
+        <ion-input class="text-input" type="text" (dblclick)="enableInput($event.target)" [(ngModel)]="user.age"
+          name="age" required readonly></ion-input>
+      </ion-item>
+    </ion-card>
+
+    <ion-card>
+      <ion-item>
+        <ion-label class="text-label"> Codigo: </ion-label>
+        <ion-input class="text-input" type="text" (dblclick)="enableInput($event.target)" [(ngModel)]="user.code"
+          name="code" required readonly></ion-input>
+      </ion-item>
+    </ion-card>
+
+    <ion-card>
+      <ion-item>
+        <ion-label class="text-label"> Carrera: </ion-label>
+        <ion-input class="text-input" type="text" (dblclick)="enableInput($event.target)" [(ngModel)]="user.career"
+          name="career" required readonly></ion-input>
+      </ion-item>
+    </ion-card>
+
+    <ion-card>
+      <ion-item>
+        <ion-label class="text-label"> Contraseña: </ion-label>
+        <ion-input class="text-input" type="password" (dblclick)="enableInput($event.target)"
+          [(ngModel)]="user.password" name="password" required readonly></ion-input>
+      </ion-item>
+    </ion-card>
+
+    <ion-button expand="full" color="myPrimaryDark" style="font-family: Arial, Helvetica, sans-serif;" (click)="updateUser()" [disabled]="!userForm.valid">Actualizar
+    </ion-button>
+  </form>
+
+  <ion-item>
+    <ion-button slot="end" color="success" (click)="editSkills()">Editar <ion-icon name="create" class="icon"></ion-icon></ion-button>
+    <ion-label>
+      <ion-text color="dark"> Tus habilidades: </ion-text>
+    </ion-label>
+  </ion-item>
+
+  <ion-list>
+    <ion-item *ngFor="let branch of skill.skills">
+      <ion-label>
+        <ion-text color="dark"> {{ branch.name }} </ion-text>
+        <ion-text color="medium"> {{ ' (' + branch.description + ')' }}</ion-text>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

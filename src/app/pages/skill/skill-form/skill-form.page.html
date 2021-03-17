@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Habilidades del alumno</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item lines="full">
+    <ion-text color="medium">
+      <div class="ion-text-center">
+        Por favor marca la(s) habilidad(es) que posees. Con esto podras apoyar a la comunidad de alumnos.
+      </div>
+    </ion-text>
+  </ion-item>
+
+  <ion-list>
+    <ion-item *ngFor="let check of checkList">
+      <ion-checkbox slot="start" color="success" [(ngModel)]="check.isCheck" (ionChange)="validateForm()"></ion-checkbox>
+      <ion-label>{{ check.name }}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="full" color="myPrimary" (click)="createSkill()" [disabled]="!formValid">Guardar</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="full" color="danger" (click)="skip()">Omitir <ion-icon style="padding-left: 2px;" name="close-circle"></ion-icon></ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+
+</ion-content>

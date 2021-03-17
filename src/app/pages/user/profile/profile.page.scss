@@ -1,0 +1,32 @@
+.center-content{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.big-size {
+    width: 150px;
+    height: 150px;
+}
+
+.text-label{
+    font-size: 18px;
+}
+
+.text-input{
+    font-size: 16px;
+    color: rgb(20, 54, 119);
+}
+
+.text-input[readonly] {
+    color: rgb(145, 145, 145);
+}
+
+ion-content {
+    --background: white;
+}
+
+.icon {
+    padding-bottom: 2px;
+    padding-left: 2px;
+}
